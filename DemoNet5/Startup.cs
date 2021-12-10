@@ -63,14 +63,31 @@ namespace DemoNet5
 
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer("assymetric", x =>
+                .AddJwtBearer("ECDsa", x =>
                 {
                     x.RequireHttpsMetadata = false;
                     x.SaveToken = false;
                     x.IncludeErrorDetails = true;
                     x.TokenValidationParameters = new TokenValidationParameters
                     {
-                        IssuerSigningKey = ECDsaValueObject.ObterECDsa(),
+                        IssuerSigningKey = ECDsaSecurity.ObterECDsaPublica(),
+                        ValidAudience = "jwt-test",
+                        ValidIssuer = "jwt-test",
+                        RequireSignedTokens = true,
+                        RequireExpirationTime = true,
+                        ValidateLifetime = true,
+                        ValidateAudience = true,
+                        ValidateIssuer = true
+                    };
+                })
+                .AddJwtBearer("Rsa", x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = false;
+                    x.IncludeErrorDetails = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        IssuerSigningKey = RSASecurity.ObterRsaPublica(),
                         ValidAudience = "jwt-test",
                         ValidIssuer = "jwt-test",
                         RequireSignedTokens = true,

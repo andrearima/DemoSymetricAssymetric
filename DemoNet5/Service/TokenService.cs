@@ -14,9 +14,14 @@ namespace DemoNet5.Service
             var signingCredentials = new SigningCredentials(SymetricSecurit.GetKey(), SecurityAlgorithms.HmacSha256);
             return GerarToken(signingCredentials);
         }
-        public string GerarAssymetric()
+        public string GerarECDsaAssymetric()
         {
-            var signingCredentials = new SigningCredentials(ECDsaValueObject.ObterECDsa(), SecurityAlgorithms.EcdsaSha256);
+            var signingCredentials = new SigningCredentials(ECDsaSecurity.ObterECDsaPrivada(), SecurityAlgorithms.EcdsaSha256);
+            return GerarToken(signingCredentials);
+        }
+        public string GerarRSA()
+        {
+            var signingCredentials = new SigningCredentials(RSASecurity.ObterRsaPrivada(), SecurityAlgorithms.RsaSsaPssSha256);
             return GerarToken(signingCredentials);
         }
         private string GerarToken(SigningCredentials signIn)

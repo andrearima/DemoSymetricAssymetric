@@ -6,20 +6,20 @@ namespace DemoNet5.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AssymetricController : ControllerBase
+    public class RsaController : ControllerBase
     {
         [HttpGet]
-        [Authorize(AuthenticationSchemes = "assymetric")]
+        [Authorize(AuthenticationSchemes = "Rsa")]
         public IActionResult Get()
         {
-            return Ok("jwt assymetric ok.");
+            return Ok("jwt Rsa assymetric ok.");
         }
 
 
         [HttpPost]
         public IActionResult GerarToken()
         {
-            return Ok(new TokenService().GerarAssymetric());
+            return Ok(new TokenService().GerarRSA());
         }
     }
 }
